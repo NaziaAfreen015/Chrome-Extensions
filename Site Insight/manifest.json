@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "Site Insight (Local)",
+  "description": "Shows what a site can learn about you and asks a few questions.",
+  "version": "0.1.0",
+  "action": { "default_popup": "popup.html" },
+  "background": { "service_worker": "service_worker.js" },
+  "permissions": [
+    "tabs",
+    "scripting",
+    "storage",
+    "sidePanel",
+    "webNavigation"
+  ],
+  "host_permissions": [
+    "https://*.wikipedia.org/*",
+    "https://*.bbc.com/*",
+    "https://*.nytimes.com/*",
+    "https://*.reddit.com/*",
+    "https://developer.chrome.com/*",
+    "https://web.dev/*",
+    "https://example.com/*"
+  ],
+  "side_panel": { "default_path": "sidepanel.html" },
+  "icons": {
+        "16": "icons/icon-16.png",
+        "32": "icons/icon-32.png",
+        "48": "icons/icon-48.png",
+        "128": "icons/icon-128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+            "https://*.wikipedia.org/*",
+            "https://*.bbc.com/*",
+            "https://*.nytimes.com/*",
+            "https://*.reddit.com/*",
+            "https://developer.chrome.com/*",
+            "https://web.dev/*",
+            "https://example.com/*"
+      ],
+      "js": ["contentScript.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Website Launcher",
+  "version": "1.0",
+  "description": "Launch random websites with a side panel",
+  "permissions": [
+    "sidePanel",
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  "background": {
+    "service_worker": "service_worker.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  }
+}

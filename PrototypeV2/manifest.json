@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Prototype V3",
+  "version": "0.3.0",
+  "description": "Launch a site or open a simple side panel on approved pages.",
+  "action": { "default_popup": "popup.html" },
+  "background": { "service_worker": "service_worker.js" },
+  "permissions": ["tabs", "sidePanel"],
+  "host_permissions": [
+    "https://*/*",
+    "http://*/*"
+  ]
+}

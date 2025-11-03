@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Site Insight – Panel</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font: 14px system-ui, sans-serif; margin: 0; }
+    header { padding: 12px 16px; border-bottom: 1px solid #ddd; position: sticky; top: 0; background: Canvas; }
+    h2 { margin: 0 0 8px 0; font-size: 16px; }
+    main { padding: 12px 16px; display: grid; gap: 12px; }
+
+    .card { border: 1px solid #e1e1e1; border-radius: 12px; padding: 12px; }
+    .grid { display: grid; gap: 8px; }
+    .k { font-weight: 600; }
+    .v { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; word-break: break-word; }
+    details summary { cursor: pointer; font-weight: 600; }
+
+    .row { display: grid; grid-template-columns: 180px 1fr; gap: 10px; align-items: start; }
+    .questions label { display: block; margin: 6px 0; }
+    button.primary { padding: 8px 12px; border-radius: 8px; border: 1px solid #ddd; cursor: pointer; }
+    .muted { color: #666; }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>Site Insight</h2>
+    <div class="muted" id="currentUrl"></div>
+  </header>
+  <main>
+    <section class="card">
+      <h3>Overview</h3>
+      <div id="overview" class="grid"></div>
+    </section>
+
+    <section class="card">
+      <details open>
+        <summary>Explanations</summary>
+        <div id="explanations" class="grid"></div>
+      </details>
+    </section>
+
+    <section class="card">
+      <details open>
+        <summary>Quick Q&A</summary>
+        <form id="qaForm" class="questions">
+          <label>
+            1) Did the language match your preference?
+            <select name="q_lang">
+              <option value="">Choose…</option>
+              <option>Yes</option>
+              <option>No</option>
+              <option>Not sure</option>
+            </select>
+          </label>
+          <label>
+            2) Could your screen size change (e.g., external monitor)?
+            <select name="q_screen">
+              <option value="">Choose…</option>
+              <option>Yes</option>
+              <option>No</option>
+              <option>Not sure</option>
+            </select>
+          </label>
+          <label>
+            3) Are you comfortable with this site adapting content to your device?
+            <select name="q_resp">
+              <option value="">Choose…</option>
+              <option>Comfortable</option>
+              <option>Neutral</option>
+              <option>Uncomfortable</option>
+            </select>
+          </label>
+          <label>
+            4) Any thoughts about what the site can infer?
+            <textarea name="q_free" rows="3" placeholder="Your note…"></textarea>
+          </label>
+          <button class="primary" type="submit">Save answers</button>
+          <span id="saveStatus" class="muted"></span>
+        </form>
+      </details>
+    </section>
+
+    <section class="card">
+      <details>
+        <summary>Recent Sessions</summary>
+        <div id="history"></div>
+      </details>
+    </section>
+  </main>
+
+  <script src="sidepanel.js"></script>
+</body>
+</html>

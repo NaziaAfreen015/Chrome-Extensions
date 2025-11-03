@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Site Insight</title>
+    <style>
+      body { font: 14px system-ui, sans-serif; margin: 12px; min-width: 260px; }
+      h3 { margin: 0 0 10px; }
+      button { display:block; width:100%; padding:8px 12px; margin:6px 0;
+               border-radius:8px; border:1px solid #ddd; background:#fff; cursor:pointer; }
+      .muted { color:#666; margin-top:8px; }
+    </style>
+  </head>
+  <body>
+    <h3>Site Insight</h3>
+    <div id="btns">
+      <button id="launch">Launch a website</button>
+      <button id="openPanel" style="display:none">Open panel for this page</button>
+    </div>
+    <div id="hint" class="muted"></div>
+    <script src="popup.js"></script>
+  </body>
+</html>
