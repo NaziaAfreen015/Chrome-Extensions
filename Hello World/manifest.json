@@ -1,0 +1,13 @@
+{
+    "name": "Sample Extension",
+    "version": "1.0",
+    "manifest_version": 3,
+    "description": "A sample browser extension manifest file that says Hello.",
+    "action": {
+        "default_popup": "hello.html",
+        "default_icon": {
+            "1": "icons/icon.png"
+        }
+    },
+    "permissions": ["storage"]
+}
