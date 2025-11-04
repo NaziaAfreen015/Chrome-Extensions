@@ -1,27 +1,48 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Site Insight Panel</title>
-    <style>
-      :root { color-scheme: light dark; }
-      body { font: 14px system-ui, sans-serif; margin: 0; }
-      header { padding: 12px 16px; border-bottom: 1px solid #ddd; position: sticky; top: 0; background: Canvas; }
-      h2 { margin: 0; font-size: 16px; }
-      main { padding: 16px; }
-      .muted { color:#666; }
-      .box { border:1px solid #e1e1e1; border-radius:12px; padding:12px; }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h2>Site Insight – Side Panel</h2>
-    </header>
-    <main>
-      <div class="box">
-        <p>This is a simple side panel placeholder.</p>
-        <p class="muted">We’ll add readings and Q&A here later.</p>
-      </div>
-    </main>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <title>Site Insight – Notes</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font: 14px system-ui, sans-serif; margin: 0; }
+    header { padding: 12px 16px; border-bottom: 1px solid #ddd; position: sticky; top: 0; background: Canvas; }
+    h2 { margin: 0; font-size: 16px; }
+    #url { color:#666; font-size:12px; }
+    main { padding: 16px; display: grid; gap: 12px; }
+
+    .toolbar { display:flex; align-items:center; gap:8px; margin-bottom: 8px; }
+    .toggle { cursor:pointer; user-select:none; font-weight:600; }
+    .toggle .arrow { display:inline-block; width:1em; text-align:center; }
+
+    .card { border: 1px solid #e1e1e1; border-radius: 12px; padding: 12px; }
+    .feature { font-weight: 700; margin: 0 0 8px; }
+    .kv { margin: 6px 0; }
+    .kv .k { font-weight: 600; display:inline-block; width: 42px; color:#555; }
+    .kv .v { white-space: pre-wrap; }
+
+    details.api { margin-top: 8px; }
+    details.api summary { list-style: none; cursor: pointer; user-select: none; }
+    details.api summary::-webkit-details-marker { display:none; }
+    details.api .label { font-weight: 600; }
+    details.api .arrow { display:inline-block; width:1em; text-align:center; transition: transform .12s ease; }
+    details.api[open] .arrow { transform: rotate(90deg); }
+
+    ul.api-list { margin: 8px 0 0 18px; padding: 0; }
+    ul.api-list li { margin: 2px 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>Site Insight – Notes</h2>
+    <div id="url" class="muted"></div>
+  </header>
+  <main>
+    <div class="toolbar">
+      <span id="toggleAll" class="toggle"><span class="arrow">▸</span><span id="toggleAllText">Show all APIs</span></span>
+    </div>
+    <section id="content">Loading…</section>
+  </main>
+  <script src="sidepanel.js"></script>
+</body>
 </html>
