@@ -74,9 +74,23 @@ chrome.runtime.onMessage.addListener((msg) => {
 
 // Close our panel if its tab navigates away from allowed sites.
 chrome.tabs.onUpdated.addListener(async (tabId, info, tab) => {
-  if (tabId !== panelTabId) return;
+  console.log('Tab Id: ', tabId, 'Info:', info, 'Tab:', tab);
+  console.log('Panel Tab Id:', panelTabId);
+  console.log('Tab URL:', tab.url);
+
+  if (panelTabId != null && tabId !== panelTabId) return;
   if (info.status === "loading" && tab.url && !isInList(tab.url)) {
+    console.log('Closing side panel for tab:', tabId);
     chrome.sidePanel.setOptions({ tabId: tabId, enabled: false });
     panelTabId = null;
   }
 });
+
+// potenital probelm: 
+// what if from the same tabe, user navigates toward another enlisted domain? If side panel is open, it is open in the new domain as well. Is this intended?
+// solution: on tab update, check if panel is open for that tab, if yes, close it?
+
+// User launches a site on tab A, opens a panel. Then launches another site on tab B, opens a panel. User navigates to the first site on tab A, goes to
+// unlisted url on tab A, the panel is still open on tab A. But it should be closed. It short circuits because panelTabId is now tab B's id and 
+// if (panelTabId != null && tabId !== panelTabId) return; causes it to return early.
+// Solution: to fix this, we can check if panel is open for the tab, if yes, close it. So we need to query side panel state for that tab id.
