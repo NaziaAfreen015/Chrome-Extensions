@@ -41,13 +41,27 @@ function isInList(urlStr) {
     window.close();
   });
 
+   // Open a tab-specific panel (user gesture preserved here)
   openPanelBtn.addEventListener("click", async () => {
-    chrome.runtime.sendMessage({ type: "OPEN_PANEL_FOR_TAB", tabId: tab?.id });
-    window.close();
+    if (!tab?.id) return;
+    try {
+      // Ensure no default/global panel is enabled
+       chrome.sidePanel.setOptions({ enabled: false });
+      // Enable for THIS tab only and open
+       chrome.sidePanel.setOptions({ tabId: tab.id, path: "sidepanel.html", enabled: true });
+       chrome.sidePanel.open({ tabId: tab.id });
+      // Tell SW which tab owns the panel so it can auto-close on navigate/launch
+      chrome.runtime.sendMessage({ type: "PANEL_OPENED_FOR_TAB", tabId: tab.id });
+    } catch (e) {
+      console.warn("SidePanel open failed:", e);
+    } finally {
+      window.close();
+    }
   });
 })();
 
-
+// Inform SW which tab has the panel (so it can close it on launch/navigation)
+chrome.runtime.onMessage.addListener((msg) => {});
 // const ALLOWED_DOMAINS = [
 //   "wikipedia.org",
 //   "developer.chrome.com",
