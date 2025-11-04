@@ -32,24 +32,51 @@ const isInList = (urlStr) => {
 };
 
 
+// Track which tab currently has our panel enabled
+let panelTabId = null;
+
+// Disable default/global panel at startup so it never shows on other tabs.
+chrome.runtime.onStartup.addListener(() => {
+  chrome.sidePanel.setOptions({ enabled: false });
+});
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.sidePanel.setOptions({ enabled: false });
+});
 
 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   console.log('Received message in service worker:', msg);
 
     if (msg.type === "LAUNCH_RANDOM") {
+      try{
+        const [active] = chrome.tabs.query({ active: true, currentWindow: true }); // explain?
+        if (panelTabId !== null && active?.id === panelTabId) {
+          // If the panel is already open for the active tab, disable it
+          chrome.sidePanel.setOptions({ tabId: panelTabId, enabled: false });
+          panelTabId = null;
+        }
+      } catch (e) {
+        console.error("Error querying active tab:");
+      }
       const url = pickRandomSite();
       chrome.tabs.create({ url, active: true });
-      return;
+      return true;
     }
-    if (msg.type === "OPEN_PANEL_FOR_TAB") {
-      const tabId = msg.tabId ?? sender.tab?.id;
-      if (tabId)  {
-        chrome.sidePanel.setOptions({ tabId, path: "sidepanel.html" });
-        chrome.sidePanel.open({ tabId });     
-      }
-      return;
-    }
-  
-  return true;
+  return false;
+});
+
+chrome.runtime.onMessage.addListener((msg) => {
+  if (msg.type === "PANEL_OPENED_FOR_TAB" && typeof msg.tabId === "number") {
+    panelTabId = msg.tabId;
+  }
+});
+
+
+// Close our panel if its tab navigates away from allowed sites.
+chrome.tabs.onUpdated.addListener(async (tabId, info, tab) => {
+  if (tabId !== panelTabId) return;
+  if (info.status === "loading" && tab.url && !isInList(tab.url)) {
+    chrome.sidePanel.setOptions({ tabId: tabId, enabled: false });
+    panelTabId = null;
+  }
 });
