@@ -1,1 +1,0 @@
-This is explanation for nytimes.com

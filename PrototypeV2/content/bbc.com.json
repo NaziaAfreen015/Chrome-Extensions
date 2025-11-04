@@ -1,0 +1,39 @@
+[{"fingerprint feature" : "Browser Frame Detection", 
+    "What": "The site checks whether it's being loaded inside another webpage (like an iframe) or if it's the main page you're visiting. ",
+    "Why": "This helps them understand the context of how their page is being accessed.",
+    "responsible_apis": ["Window.top", "Window.self", "Window.frameElement"]},
+
+{"fingerprint feature" : "Cookie Information", 
+    "What": "The site reads small text files stored on your device to identify you when you return.",
+    "Why": "These cookies help remember your preferences and track your visits.",
+    "responsible_apis": ["Document.cookie"]},
+
+{"fingerprint feature" : "Session Identifiers", 
+    "What": "The site creates unique codes for your browsing session.",
+    "Why": "These codes help them track your activities during your visit and distinguish you from other visitors.",
+    "responsible_apis": ["Math.random", "Location.hostname"]},
+
+{"fingerprint feature" : "Performance Timing", 
+    "What": "The site measures how long different parts of the webpage take to load, including network connection times, server response times, and how quickly content appears on your screen.",
+    "Why": "This information helps them optimize their site's performance.",
+    "responsible_apis": ["Performance.timing", "Performance.navigation"]},
+
+{"fingerprint feature" : "Page Navigation Type", 
+    "What": "The site checks how you arrived at their page - whether you typed the address directly, clicked a link, used the back button, or refreshed the page.",
+    "Why": "This helps them understand user behavior and traffic sources.",
+    "responsible_apis": ["PerformanceNavigation.type", "PerformanceNavigation.redirectCount"]},
+
+{"fingerprint feature" : "Event Tracking", 
+    "What": "The site monitors when you leave the page or close the browser tab to understand your browsing patterns and how long you stay on their site.",
+    "Why": "This data helps them improve user engagement.",
+    "responsible_apis": ["PageVisibilityEvent", "beforeunload"]},
+
+{"fingerprint feature" : "Error Monitoring", 
+    "What": "The site tracks any errors that occur while you're browsing to improve their service and identify potential issues.",
+    "Why": "This helps them maintain a smooth user experience.",
+    "responsible_apis": ["ErrorEvent", "console.error"]},
+
+{"fingerprint feature" : "Page Visibility", 
+    "What": "The site tracks whether their webpage is currently visible on your screen or hidden behind other windows/tabs.",
+    "Why": "This information helps them understand user engagement and optimize content delivery.",
+    "responsible_apis": ["Document.hidden", "visibilitychange"]}]

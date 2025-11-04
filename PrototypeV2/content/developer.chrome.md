@@ -1,1 +1,0 @@
-This is explanation for developer.chrome

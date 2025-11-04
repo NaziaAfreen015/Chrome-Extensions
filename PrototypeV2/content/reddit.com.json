@@ -1,0 +1,9 @@
+[{"fingerprint feature" : "Browser Frame Detection", 
+    "What": "The site checks whether it's being loaded inside another webpage (like an iframe) or if it's the main page you're visiting. ",
+    "Why": "This helps them understand the context of how their page is being accessed.",
+    "responsible_apis": ["Window.top", "Window.self", "Window.frameElement"]},
+
+{"fingerprint feature" : "Page Visibility", 
+    "What": "The site tracks whether their webpage is currently visible on your screen or hidden behind other windows/tabs.",
+    "Why": "This information helps them understand user engagement and optimize content delivery.",
+    "responsible_apis": ["Document.hidden", "visibilitychange"]}]

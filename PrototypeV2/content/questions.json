@@ -1,0 +1,13 @@
+[
+    {"question": "In this explanation simple? Rate from 1 to 5 stars.",
+    "multiple_choice": true,
+    "options": ["1 star", "2 stars", "3 stars", "4 stars", "5 stars"]},
+
+    {"question": "Did you find this explanation useful?",
+        "multiple_choice": true,
+        "options": ["Yes", "No"]},
+
+    {"question": "Any additional comments or suggestions?",
+        "multiple_choice": false,
+        "options": []}
+]
