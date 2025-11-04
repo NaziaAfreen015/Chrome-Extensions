@@ -1,5 +1,5 @@
 // ====== CONFIG: Set your endpoint for submissions ======
-// const SUBMIT_ENDPOINT = "https://YOUR-DOMAIN.example/collect"; // <-- replace
+const SUBMIT_ENDPOINT = "https://script.google.com/macros/s/AKfycbxj0mWoGtpR9VtehnEoSJtyoAFclfqtPYR48TF6ZVdIAzUzk0sLJoVSda5LudLfxcFB/exec"; // <-- replace
 // Ensure this origin is in manifest.json "host_permissions": ["https://YOUR-DOMAIN.example/*"]
 
 async function getActiveTab() {
@@ -169,6 +169,7 @@ function collectAnswers() {
 }
 
 async function saveAnswers(record) {
+  console.log("Saving record locally:", JSON.stringify(record));
   const key = "responses";
   const all = (await chrome.storage.local.get(key))[key] || [];
   all.push(record);
@@ -187,20 +188,21 @@ async function exportAll() {
   URL.revokeObjectURL(url);
 }
 
-// async function submitToOwner(record) {
-//   if (!SUBMIT_ENDPOINT || !/^https?:\/\//.test(SUBMIT_ENDPOINT)) {
-//     throw new Error("SUBMIT_ENDPOINT not configured");
-//   }
-//   const res = await fetch(SUBMIT_ENDPOINT, {
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify(record)
-//   });
-//   if (!res.ok) {
-//     const t = await res.text().catch(()=> "");
-//     throw new Error(`Submit failed: ${res.status} ${res.statusText} ${t}`);
-//   }
-// }
+async function submitToOwner(record) {
+  if (!SUBMIT_ENDPOINT || !/^https?:\/\//.test(SUBMIT_ENDPOINT)) {
+    throw new Error("SUBMIT_ENDPOINT not configured");
+  }
+  console.log("Submitting record to owner:", JSON.stringify(record));
+  const res = await fetch(SUBMIT_ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(record)
+  });
+  if (!res.ok) {
+    const t = await res.text().catch(()=> "");
+    throw new Error(`Submit failed: ${res.status} ${res.statusText} ${t}`);
+  }
+}
 
 // ---------- Init ----------
 (async function init() {
@@ -209,7 +211,7 @@ async function exportAll() {
   const qaEl = document.getElementById("qa");
   const saveBtn = document.getElementById("save");
   const exportBtn = document.getElementById("export");
-//   const submitBtn = document.getElementById("submit");
+  const submitBtn = document.getElementById("submit");
   const statusEl = document.getElementById("status");
 
   const tab = await getActiveTab();
@@ -268,25 +270,25 @@ async function exportAll() {
     }
   });
 
-//   submitBtn.addEventListener("click", async (e) => {
-//     e.preventDefault();
-//     statusEl.textContent = "Submitting…";
-//     try {
-//       const answers = collectAnswers();
-//       const record = {
-//         schemaVersion: 1,
-//         ts: Date.now(),
-//         domain: base,
-//         url: tab?.url || "",
-//         answers
-//       };
-//       await submitToOwner(record);
-//       // Also save locally for your records
-//       await saveAnswers(record);
-//       statusEl.textContent = "Submitted!";
-//       setTimeout(()=> statusEl.textContent = "", 1500);
-//     } catch (err) {
-//       statusEl.textContent = String(err);
-//     }
-//   });
+  submitBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    statusEl.textContent = "Submitting…";
+    try {
+      const answers = collectAnswers();
+      const record = {
+        schemaVersion: 1,
+        ts: Date.now(),
+        domain: base,
+        url: tab?.url || "",
+        answers
+      };
+      await submitToOwner(record);
+      // Also save locally for your records
+      await saveAnswers(record);
+      statusEl.textContent = "Submitted!";
+      setTimeout(()=> statusEl.textContent = "", 1500);
+    } catch (err) {
+      statusEl.textContent = String(err);
+    }
+  });
 })();

@@ -8,6 +8,7 @@
   "permissions": ["tabs", "sidePanel", "storage"],
   "host_permissions": [
     "https://*/*",
-    "http://*/*"
+    "http://*/*",
+    "https://script.google.com/*"
   ]
 }
