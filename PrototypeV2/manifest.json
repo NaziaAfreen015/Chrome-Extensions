@@ -5,7 +5,7 @@
   "description": "Launch a site or open a simple side panel on approved pages.",
   "action": { "default_popup": "popup.html" },
   "background": { "service_worker": "service_worker.js" },
-  "permissions": ["tabs", "sidePanel"],
+  "permissions": ["tabs", "sidePanel", "storage"],
   "host_permissions": [
     "https://*/*",
     "http://*/*"

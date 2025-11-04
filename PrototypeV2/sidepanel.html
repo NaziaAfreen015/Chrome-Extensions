@@ -30,6 +30,17 @@
 
     ul.api-list { margin: 8px 0 0 18px; padding: 0; }
     ul.api-list li { margin: 2px 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+    /* Q&A */
+    .qa h3 { margin: 0 0 8px; font-size: 14px; }
+    .q { margin: 10px 0; }
+    .q label.qtext { font-weight: 600; display:block; margin-bottom: 4px; }
+    .opts { margin-left: 12px; }
+    .opts label { display:block; margin: 3px 0; }
+    textarea { width: 100%; min-height: 80px; }
+    .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 6px; }
+    button { padding: 8px 12px; border-radius: 8px; border: 1px solid #ddd; cursor: pointer; }
+    #status { color:#666; }
   </style>
 </head>
 <body>
@@ -42,6 +53,17 @@
       <span id="toggleAll" class="toggle"><span class="arrow">▸</span><span id="toggleAllText">Show all APIs</span></span>
     </div>
     <section id="content">Loading…</section>
+
+    <section id="qa" class="card qa" hidden>
+      <h3>Quick Q&A</h3>
+      <form id="qaForm"></form>
+      <div class="row">
+        <button id="save">Save answers</button>
+        <button id="export">Export all answers</button>
+        <!-- <button id="submit">Submit to owner</button> -->
+        <span id="status"></span>
+      </div>
+    </section>
   </main>
   <script src="sidepanel.js"></script>
 </body>
