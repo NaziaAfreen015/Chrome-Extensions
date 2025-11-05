@@ -1,20 +1,20 @@
 [
-    {"fingerprint_feature": "Iframe Detection", 
-     "what": "The code checks if the webpage is being displayed inside a frame on another website.",
-     "why": "This helps understand how the user is viewing the page, for instance, if it's embedded within another service.", 
-     "responsible_apis": ["Window.top", "Window.self", "Window.frameElement"], 
-     },
-     
-    {"fingerprint_feature": "Session and Request ID Generation", 
-     "what": "The code generates unique random identifiers for your session and for individual requests.", 
-     "why": "These IDs are used to track your activity across the site during your visit.",
-     "responsible_apis": ["Math.random", "Location.hostname", "HTMLDocument.cookie"], 
+    {
+        "fingerprint feature": "Error Monitoring",
+        "What": "The site tracks any errors that occur while you're browsing to improve their service and identify potential issues.",
+        "Why": "This helps them maintain a smooth user experience.",
+        "responsible_apis": [
+            "ErrorEvent",
+            "console.error"
+        ]
     },
-     
-     
-    {"fingerprint_feature": "Navigation Behavior Tracking", 
-     "what": "The code gathers information about how you arrived at the page, such as whether you clicked a link, reloaded the page, or used the back/forward buttons. It also counts the number of redirects it took to get to the current page.", 
-     "why": "This helps understand user behavior and the effectiveness of different navigation paths.",
-     "responsible_apis": ["PerformanceNavigation.type", "PerformanceNavigation.redirectCount"], 
-     }
+    {
+        "fingerprint feature": "Page Visibility",
+        "What": "The site tracks whether their webpage is currently visible on your screen or hidden behind other windows/tabs.",
+        "Why": "This information helps them understand user engagement and optimize content delivery.",
+        "responsible_apis": [
+            "Document.hidden",
+            "visibilitychange"
+        ]
+    }
 ]
