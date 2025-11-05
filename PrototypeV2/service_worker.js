@@ -9,7 +9,7 @@ const ALLOWED_DOMAINS = [
   "example.com"
 ];
 
-const SITES = [
+let SITES = [
   "https://example.com/",
   "https://developer.chrome.com/",
   "https://www.wikipedia.org/",
@@ -19,8 +19,21 @@ const SITES = [
   "https://www.reddit.com/"
 ];
 
+let doneSites = [];
+
 function pickRandomSite() {
-  return SITES[Math.floor(Math.random() * SITES.length)];
+  console.log("Current SITES:", SITES);
+  console.log("Done SITES:", doneSites);
+  if (SITES.length === 0) {
+    SITES = structuredClone(doneSites);
+    doneSites = [];
+  }
+  let index = Math.floor(Math.random() * SITES.length);
+  let url = SITES[index];
+  doneSites.push(SITES[index]);
+  SITES.splice(index, 1);
+
+  return url;
 }
 
 const isInList = (urlStr) => {
@@ -74,9 +87,9 @@ chrome.runtime.onMessage.addListener((msg) => {
 
 // Close our panel if its tab navigates away from allowed sites.
 chrome.tabs.onUpdated.addListener(async (tabId, info, tab) => {
-  console.log('Tab Id: ', tabId, 'Info:', info, 'Tab:', tab);
-  console.log('Panel Tab Id:', panelTabId);
-  console.log('Tab URL:', tab.url);
+  // console.log('Tab Id: ', tabId, 'Info:', info, 'Tab:', tab);
+  // console.log('Panel Tab Id:', panelTabId);
+  // console.log('Tab URL:', tab.url);
 
   if (panelTabId != null && tabId !== panelTabId) return;
   if (info.status === "loading" && tab.url && !isInList(tab.url)) {
