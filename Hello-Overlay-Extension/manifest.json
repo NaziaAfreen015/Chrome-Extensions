@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Hello Overlay",
+  "version": "1.0.0",
+  "description": "Shows a Hello World overlay on the active tab after install.",
+  "permissions": ["scripting", "tabs"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "service_worker.js"
+  },
+  "action": {
+    "default_title": "Hello Overlay"
+  }
+}
